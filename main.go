@@ -3,11 +3,13 @@ package main
 
 import (
 	"fmt"
-	"go-application/agecli"
+	// "go-application/agecli"
+	wc "go-application/wordcount"
 
 )
 
 func main() {
 	fmt.Println("Hi gopher!!")
-	agecli.GetAge()
+	// agecli.GetAge()
+	wc.Wordcount()
 }
