@@ -1,3 +1,3 @@
-module github.com/zxdzxd/go-application
+module go-application
 
 go 1.21.1

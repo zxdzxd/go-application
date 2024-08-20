@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func getAge(){
+func GetAge(){
 	fmt.Print("enter your Name : ")
 	var name string
 	fmt.Scanln(&name)

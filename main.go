@@ -3,10 +3,11 @@ package main
 
 import (
 	"fmt"
-	// "github.com/zxdzxd/go-application/agecli/getage"
+	"go-application/agecli"
+
 )
 
 func main() {
 	fmt.Println("Hi gopher!!")
-	// getage.getAge()
+	agecli.GetAge()
 }
