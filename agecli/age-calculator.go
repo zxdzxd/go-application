@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// function name shall start Capital to be accessible from other package
 func GetAge(){
 	fmt.Print("enter your Name : ")
 	var name string

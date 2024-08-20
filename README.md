@@ -5,4 +5,6 @@ simple application in go-lang
 https://www.bytesizego.com/blog/learning-golang-2024
 
 ### Initialize go module 
-go mod init build_in_go/go-application
+go mod init go-application
+
+
