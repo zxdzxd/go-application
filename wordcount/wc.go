@@ -41,38 +41,43 @@ func Wordcount() {
 	}
 	switch {
 	case *bytecount == "c":
-		fmt.Println(len(data))
+		fmt.Println(byte_count(data))
 
 	case *total_line == "l":
-		sliceofstring := strings.Split(datastring, "\n")
-
-		fmt.Println(len(sliceofstring) - 1)
+		fmt.Println(totalLine(datastring))
 
 	case *totalword == "w":
-		// fmt.Println(len(datastring))
-		word_count := 0
-		foundSpace := false
-		for _, j := range datastring {
-			if unicode.IsSpace(j) {
-				foundSpace = false
-			} else if !foundSpace {
-				foundSpace = true
-				word_count++
-			}
-		}
-		fmt.Println(word_count)
-	case *totalchar == "m":
-		// char_count := 0
-		total_char := strings.Split(datastring, "")
+		fmt.Println(total_word(datastring))
 
-		// for _, j := range datastring {
-			
-		// 	// if unicode.IsSpace(j) {
-		// 	// 	char_count++
-		// 	// }
-		// }
+	case *totalchar == "m":
+		total_char := strings.Split(datastring, "")
 		fmt.Println(len(total_char))
+	default:
+		fmt.Println(totalLine(datastring), total_word(datastring), byte_count(data))
 
 	}
 
+}
+
+func byte_count(data []byte) int {
+	return len(data)
+}
+
+func totalLine(datastring string) int {
+	sliceofstring := strings.Split(datastring, "\n")
+	return len(sliceofstring) - 1
+}
+
+func total_word(datastring string) int {
+	word_count := 0
+	foundSpace := false
+	for _, j := range datastring {
+		if unicode.IsSpace(j) {
+			foundSpace = false
+		} else if !foundSpace {
+			foundSpace = true
+			word_count++
+		}
+	}
+	return word_count
 }
