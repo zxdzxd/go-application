@@ -5,6 +5,8 @@ package wordcount
 import (
 	"flag"
 	"fmt"
+	"io"
+	"io/fs"
 	"os"
 	"strings"
 	"unicode"
@@ -27,13 +29,30 @@ func init() {
 }
 
 func Wordcount() {
-	fmt.Println("read file")
 	flag.Parse()
 	// *filename = "wordcount/test.txt"
+	var stdata *os.File
+	var filestat fs.FileInfo
+	var data []byte
+	var err error
 	if *filename == "" {
-		fmt.Println("Input file name using -f flag")
+		stdata = os.Stdin
+		filestat, err = stdata.Stat()
+		if err != nil {
+			fmt.Printf("unable to get std fileinfo \nError- %s", err)
+			return
+		}
+		if filestat.Size() > 0 {
+			data, err = io.ReadAll(stdata)
+			if err != nil {
+				fmt.Printf("unable to read stdin file \nError- %s", err)
+				return
+			}
+		}
+	} else {
+		data, err = os.ReadFile(*filename)
 	}
-	data, err := os.ReadFile(*filename)
+
 	datastring := string(data)
 	if err != nil {
 		fmt.Printf("unable to read file \nError- %s", err)
