@@ -3,13 +3,25 @@ package main
 
 import (
 	"fmt"
-	// "go-application/agecli"
-	wc "go-application/wordcount"
+	"log"
 
+	// "go-application/agecli"
+	// wc "go-application/wordcount"
+	sf "go-application/spotifyclient"
+
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Printf("unable to load .env file, error - %s", err)
+	}
+}
 
 func main() {
 	fmt.Println("Hi gopher!!")
 	// agecli.GetAge()
-	wc.Wordcount()
+	// wc.Wordcount()
+	sf.SfClient()
 }
