@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -23,12 +24,14 @@ type TokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	ExpiresIn   int    `json:"expires_in"`
+	Scope       string `json:"scope"`
 }
 
 func SfClient() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/getArtist", getArtistById)
+	router.HandleFunc("/uf", getUserProfile)
+	router.HandleFunc("/", getArtistById)
 
 	http.ListenAndServe(":8001", router)
 }
@@ -36,6 +39,42 @@ func SfClient() {
 func getArtistById(w http.ResponseWriter, r *http.Request) {
 	access_token := getAccessToken()
 	fmt.Printf("Received access token - %s", access_token)
+
+}
+
+func getUserProfile(w http.ResponseWriter, r *http.Request) {
+	access_token := getAccessToken()
+	user_profile_url := "https://api.spotify.com/v1/me"
+
+	// formdata := url.Values{}
+	// formdata.Set("scope", "user-read-private user-read-email")
+	// encoded_formdata := formdata.Encode()
+
+	newReq, err := http.NewRequest(http.MethodGet, user_profile_url, nil)
+	if err != nil {
+		log.Printf("Unable to form request, error - %s", err)
+	}
+	// bearer_token := fmt.Sprintf("Bearer %s", access_token)
+	bearer_token := "Bearer " + access_token
+	// newReq.Header.Set("Authorization", bearer_token)
+	newReq.Header.Add("Authorization", bearer_token)
+
+	newClient := &http.Client{}
+	newResp, err := newClient.Do(newReq)
+	if err != nil {
+		log.Printf("Unable to get response, error - %s", err)
+	}
+
+	defer newResp.Body.Close()
+
+	respBody, err := io.ReadAll(newResp.Body)
+	if err != nil {
+		log.Printf("unable to read response body, error - %s", err)
+	}
+
+	respBodyString := string(respBody)
+
+	fmt.Println(respBodyString)
 
 }
 
@@ -48,6 +87,7 @@ func getAccessToken() string {
 	formdata.Set("grant_type", grantType)
 	formdata.Set("client_id", ClientId)
 	formdata.Set("client_secret", ClientSecret)
+	formdata.Set("scope", "user-read-private user-read-email")
 
 	encoded_formdata := formdata.Encode()
 
