@@ -1,0 +1,16 @@
+Access Token
+
+curl -X POST "https://accounts.spotify.com/api/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "grant_type=client_credentials&client_id=5fda0ab49afb45939a9f7933a7177e84&client_secret=867ba041a3044bed92ad7e8c2c2af82c&scope=user-read-private user-read-email"
+
+{
+    "access_token":"BQAhx_aKGbJXBOHTX4_Y8jWwo3aDKH1Y4MTzpw7bGtHA3HdUdoRVnAsAXK9irjzK4VBUSsnrTdu4oM6Sok-a1-lJxTrcBP9kRjhzANTKHnTgIA2xS0w",
+    "token_type":"Bearer",
+    "expires_in":3600
+    }
+
+User Profile
+
+curl -X GET "https://api.spotify.com/v1/me" \
+  -H "Authorization: Bearer BQAzO3mpw--R2cN9D289upHi4pL3zZENBc328cxt4wUYq1_JuYyReYgH7VHEBE-BoASG_ADEoHIbwmCAfuj9It7hNv5NREOV3C8WoOIT8b3BBYj9qlHLW3nr39aQIsrADOY"

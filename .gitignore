@@ -1,3 +1,4 @@
 #Ignore files
 go-application
 .env
+.DS_Store

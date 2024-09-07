@@ -7,7 +7,8 @@ import (
 
 	// "go-application/agecli"
 	// wc "go-application/wordcount"
-	sf "go-application/spotifyclient"
+	// sf "go-application/spotifyclient"
+	sc "go-application/socketcomm"
 
 	"github.com/joho/godotenv"
 )
@@ -23,5 +24,7 @@ func main() {
 	fmt.Println("Hi gopher!!")
 	// agecli.GetAge()
 	// wc.Wordcount()
-	sf.SfClient()
+	// sf.SfClient()
+	sc.SocketClient()
+	// SocketServer()
 }
